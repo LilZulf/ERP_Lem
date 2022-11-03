@@ -9,6 +9,7 @@
                 <th scope="col">Kode</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">harga Satuan</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>

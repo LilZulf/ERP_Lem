@@ -39,4 +39,7 @@ class ManufactureController extends Controller
         ]);
         return redirect('/product');
     }
+    public function material(){
+        return view('manufacture.bom');
+    }
 }
