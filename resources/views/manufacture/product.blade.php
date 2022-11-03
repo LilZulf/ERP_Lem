@@ -9,6 +9,7 @@
                 <th scope="col">Kode</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">harga Satuan</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <td>P001</td>
                 <td>Lem Kertas</td>
                 <td>1</td>
+                <td>5000</td>
                 <td>
                     <a href="" class="btn btn-warning" role="button">Edit</a>
                     <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
@@ -31,6 +33,7 @@
                 <td>P002</td>
                 <td>Solasi</td>
                 <td>1</td>
+                <td>3000</td>
                 <td><a href="" class="btn btn-warning" role="button">Edit</a>
                     <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
                     <a href="" class="btn btn-info" role="button">Cetak</a>
@@ -42,6 +45,7 @@
                 <td>P003</td>
                 <td>Tepung Kanji</td>
                 <td>10</td>
+                <td>10000</td>
                 <td>
                     <a href="" class="btn btn-warning" role="button">Edit</a>
                     <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>

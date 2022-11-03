@@ -11,6 +11,10 @@
             <input type="text" class="form-control" id="nama_product">
         </div>
         <div class="form-group">
+            <label for="harga_product">Harga Product</label>
+            <input type="text" class="form-control" id="harga_product">
+        </div>
+        <div class="form-group">
             <label for="deskripsi_product">Deskripsi Product</label>
             <textarea class="form-control" id="deskripsi_product" rows="3"></textarea>
         </div>

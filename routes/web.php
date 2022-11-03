@@ -19,4 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/product', [ManufactureController::class,'allProduct']);
-Route::get('/input-product', [ManufactureController::class,'input']);
+Route::get('/product/input-product', [ManufactureController::class,'input']);
+Route::get('/product/bom', [ManufactureController::class,'material']);

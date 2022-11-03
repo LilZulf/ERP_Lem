@@ -12,4 +12,7 @@ class ManufactureController extends Controller
     public function allProduct(){
         return view('manufacture.product');
     }
+    public function material(){
+        return view('manufacture.bom');
+    }
 }
