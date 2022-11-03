@@ -15,7 +15,7 @@ use App\Http\Controllers\ManufactureController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('manufacture.dashboard');
 });
 
 Route::get('/product', [ManufactureController::class,'tampil']);
