@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('manufacture.dashboard');
 });
 
-Route::get('/product', [ManufactureController::class,'tampil']);
+Route::get('/product', [ManufactureController::class,'allProduct']);
+Route::get('/input-product', [ManufactureController::class,'input']);
