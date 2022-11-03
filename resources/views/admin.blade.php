@@ -63,14 +63,14 @@
                 <div id="collapseProduk" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/product">All Produk</a>
-                        <a class="collapse-item" href="/input-product">Input Produk</a>
+                        <a class="collapse-item" href="/product/input-product">Input Produk</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" aria-expanded="true">
+                <a class="nav-link" href="/product/bom" aria-expanded="true">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Bill of Materials</span>
                 </a>

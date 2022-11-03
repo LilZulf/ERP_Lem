@@ -19,7 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/product', [ManufactureController::class,'allProduct']);
-Route::get('/input-product', [ManufactureController::class,'input']);
-Route::get('/input-product/upload', [ManufactureController::class,'upload']);
+Route::post('/input-product/upload', [ManufactureController::class,'upload']);
 Route::get('/product/input-product', [ManufactureController::class,'input']);
 Route::get('/product/bom', [ManufactureController::class,'material']);

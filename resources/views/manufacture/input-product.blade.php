@@ -13,19 +13,19 @@
         </div>
         <div class="form-group">
             <label for="harga_product">Harga Product</label>
-            <input type="text" class="form-control" id="harga_product">
+            <input type="text" class="form-control" id="harga" name="harga">
         </div>
         <div class="form-group">
             <label for="deskripsi_product">Deskripsi Product</label>
             <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk" rows="3"></textarea>
         </div>
-        <form>
-            <div class="form-group">
-                <label for="exampleFormControlFile1">Pilih Gambar Product</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-            </div>
-        </form>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Pilih Gambar Product</label>
+            <input type="file" class="form-control-file" id="gambar" name="gambar">
+        </div>
+
+        <button class="btn btn-primary" type="submit" name="simpan">Tambah</button>
     </form>
 </div>
 @endsection

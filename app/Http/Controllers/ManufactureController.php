@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
+use File;
 
 class ManufactureController extends Controller
 {
@@ -19,11 +20,11 @@ class ManufactureController extends Controller
         $this->validate($request, [
             'kode_produk' => 'required',
             'nama_produk' => 'required',
-            'kuantitas' => 'required',
             'harga' => 'required',
             'deskripsi_produk' => 'required',
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
+    
         $gambar = $request->file('gambar');
         $nama_gambar = time()."_".$gambar->getClientOriginalName();
         $simpan_gambar = 'gambar';
@@ -32,7 +33,7 @@ class ManufactureController extends Controller
         ProductModel::create([
             'kode_produk' => $request->kode_produk,
             'nama_produk' => $request->nama_produk,
-            'kuantitas' => $request->kuantitas,
+            'kuantitas' => 0,
             'harga' => $request->harga,
             'deskripsi_produk' => $request->deskripsi_produk,
             'gambar' => $nama_gambar
