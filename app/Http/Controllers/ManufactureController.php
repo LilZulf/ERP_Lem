@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductModel;
 use Illuminate\Http\Request;
 
 class ManufactureController extends Controller
@@ -10,6 +11,7 @@ class ManufactureController extends Controller
         return view('manufacture.input-product');
     }
     public function allProduct(){
-        return view('manufacture.product');
+        $product = ProductModel::all();
+        return view('manufacture.product',['products' => $product]); 
     }
 }

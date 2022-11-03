@@ -13,41 +13,26 @@
             </tr>
         </thead>
         <tbody>
+            @if($products->count())
+            @foreach($products as $product)
             <tr>
-                <th scope="row">1</th>
-                <td><img src="{{ url('/dummy/img-dummy.png') }}" alt="No images" style="width:150px;height:150px; border-radius: 10%;"></td>
-                <td>P001</td>
-                <td>Lem Kertas</td>
-                <td>1</td>
-                <td>
-                    <a href="" class="btn btn-warning" role="button">Edit</a>
-                    <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
-                    <a href="" class="btn btn-info" role="button">Cetak</a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td><img src="{{ url('/dummy/img-dummy.png') }}" alt="No images" style="width:150px;height:150px; border-radius: 10%;"></td>
-                <td>P002</td>
-                <td>Solasi</td>
-                <td>1</td>
+                <th scope="row">{{$loop->iteration}}</th>
+                <td><img src="{{ url($product->gambar) }}" alt="No images" style="width:150px;height:150px; border-radius: 10%;"></td>
+                <td>{{$product->kode_produk}}</td>
+                <td>{{$product->nama_produk}}</td>
+                <td>{{$product->kuantitas}}</td>
                 <td><a href="" class="btn btn-warning" role="button">Edit</a>
                     <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
                     <a href="" class="btn btn-info" role="button">Cetak</a>
                 </td>
             </tr>
+
+            @endforeach
+            @else
             <tr>
-                <th scope="row">3</th>
-                <td><img src="{{ url('/dummy/img-dummy.png') }}" alt="No images" style="width:150px;height:150px; border-radius: 10%;"></td>
-                <td>P003</td>
-                <td>Tepung Kanji</td>
-                <td>10</td>
-                <td>
-                    <a href="" class="btn btn-warning" role="button">Edit</a>
-                    <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
-                    <a href="" class="btn btn-info" role="button">Cetak</a>
-                </td>
+                <td colspan="7"> No record found </td>
             </tr>
+            @endif
         </tbody>
     </table>
 </div>
