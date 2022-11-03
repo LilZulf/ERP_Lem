@@ -62,7 +62,8 @@
                 </a>
                 <div id="collapseProduk" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/product">Insert Produk</a>
+                        <a class="collapse-item" href="/product">All Produk</a>
+                        <a class="collapse-item" href="/input-product">Input Produk</a>
                     </div>
                 </div>
             </li>
