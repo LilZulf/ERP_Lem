@@ -2,18 +2,23 @@
 @section('main')
 <div class="container">
     <form>
-        <div class="form-group">
-            <label for="select_item">Pilih Product</label>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Product
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Item 1</a>
-                  <a class="dropdown-item" href="#">Item 2</a>
-                  <a class="dropdown-item" href="#">Item 3</a>
-                </div>
-              </div>
+        <div class="row row-cols-3">
+            <div class="form-group">
+                <label for="select_item">Pilih Product</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                      Pilih Product
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Item 1</a>
+                      <a class="dropdown-item" href="#">Item 2</a>
+                      <a class="dropdown-item" href="#">Item 3</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="container-fluid mt-4 mr-3 align-content-end">
+                <button type="button" class="btn btn-primary ">Print</button>
+            </div>
         </div>
         <div class="form-group">
             <label for="select_item">Pilih Material</label>
@@ -107,8 +112,9 @@
         </tbody>
     </table>
     <div class="container-sm ">
+        <div class="row"></div>
         <div class="row mt-auto p-2 bd-highlight">
-            <label for="text_harga"> Total Harga : </label>
+            <label for="text_harga" class="font-weight-bold"> Total Harga : </label>
             <label for="total_harga"> XXXXX</label>
         </div>
     </div>
