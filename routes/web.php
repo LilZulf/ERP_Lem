@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/product', [ManufactureController::class,'allProduct']);
 Route::get('/input-product', [ManufactureController::class,'input']);
+Route::get('/input-product/upload', [ManufactureController::class,'upload']);

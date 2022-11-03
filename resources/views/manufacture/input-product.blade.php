@@ -1,18 +1,19 @@
 @extends('admin')
 @section('main')
 <div class="container-fluid">
-    <form>
+    <form action="{{ url('input-product/upload') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div class="form-group">
-            <label for="code_product">Code product</label>
-            <input type="text" class="form-control" id="code_product" aria-describedby="emailHelp">
+            <label for="kode_produk">Code product</label>
+            <input type="text" class="form-control" id="kode_produk" name="kode_produk">
         </div>
         <div class="form-group">
             <label for="nama_product">Nama Product</label>
-            <input type="text" class="form-control" id="nama_product">
+            <input type="text" class="form-control" id="nama_produk" name="nama_produk">
         </div>
         <div class="form-group">
             <label for="deskripsi_product">Deskripsi Product</label>
-            <textarea class="form-control" id="deskripsi_product" rows="3"></textarea>
+            <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk" rows="3"></textarea>
         </div>
         <form>
             <div class="form-group">
