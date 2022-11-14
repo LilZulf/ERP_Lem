@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
 use File;
+use Image;
 
 class ManufactureController extends Controller
 {
@@ -25,10 +26,14 @@ class ManufactureController extends Controller
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
     
-        $gambar = $request->file('gambar');
-        $nama_gambar = time()."_".$gambar->getClientOriginalName();
-        $simpan_gambar = 'gambar';
-        $gambar->move($simpan_gambar, $nama_gambar);
+        $image = $request->file('gambar');
+        $nama_gambar = time()."_".$image->getClientOriginalName();
+        $destinationPath = public_path('/gambar');
+        $imgFile = Image::make($image->getRealPath());
+        $imgFile->resize(150, 150, function ($constraint) {
+		    $constraint->aspectRatio();
+		})->save($destinationPath.'/'.$nama_gambar);
+        $image->move($destinationPath, $nama_gambar);
 
         ProductModel::create([
             'kode_produk' => $request->kode_produk,
@@ -40,7 +45,53 @@ class ManufactureController extends Controller
         ]);
         return redirect('/product');
     }
+    public function edit($kode_produk){
+        $product = ProductModel::find($kode_produk);
+        return view('manufacture.update-product', compact('product'),['product' => $product]);
+    }
+
+    public function update($kode_produk,Request $request){
+        $this->validate($request, [
+            'nama_produk' => 'required',
+            'harga' => 'required',
+            'deskripsi_produk' => 'required',
+            'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
+        ]);
+
+        $product = ProductModel::find($kode_produk);
+        $product->nama_produk = $request->nama_produk;
+        $product->harga = $request->harga;
+        $product->deskripsi_produk = $request->deskripsi_produk;
+
+        if($request->hasfile('gambar')) {
+
+            File::delete('gambar/'.$product->gambar);
+            $image = $request->file('gambar');
+            $nama_gambar = time()."_".$image->getClientOriginalName();
+            $destinationPath = public_path('/gambar');
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->resize(150, 150, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$nama_gambar);
+            $image->move($destinationPath, $nama_gambar);
+            
+            $product->gambar = $nama_gambar;
+        }
+
+        $product->save();
+        return redirect('/product');
+    }
+    public function delete($kode_produk){
+        $product = ProductModel::find($kode_produk);
+        File::delete('gambar/'.$product->gambar);
+
+        // hapus data
+        $product->delete();
+        return redirect('/product');
+    }
+
     public function material(){
         return view('manufacture.bom');
     }
+
 }

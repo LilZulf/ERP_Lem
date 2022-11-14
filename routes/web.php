@@ -20,5 +20,8 @@ Route::get('/', function () {
 
 Route::get('/product', [ManufactureController::class,'allProduct']);
 Route::post('/input-product/upload', [ManufactureController::class,'upload']);
+Route::get('/edit-product/{id_product}', [ManufactureController::class,'edit']);
+Route::put('/edit-product/update/{id_product}', [ManufactureController::class,'update']);
+Route::delete('/delete-product/{id_product}', [ManufactureController::class,'delete']);
 Route::get('/product/input-product', [ManufactureController::class,'input']);
 Route::get('/product/bom', [ManufactureController::class,'material']);
