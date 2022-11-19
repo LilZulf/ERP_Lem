@@ -70,10 +70,16 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/product/bom" aria-expanded="true">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBom" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Bill of Materials</span>
                 </a>
+                <div id="collapseBom" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/product/bom">Bom List</a>
+                        <a class="collapse-item" href="/product/bom-input">Insert Bom</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

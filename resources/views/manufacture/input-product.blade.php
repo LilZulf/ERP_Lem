@@ -1,19 +1,19 @@
 @extends('admin')
 @section('main')
 <div class="container-fluid">
-    <form action="{{ url('input-product/upload') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ url('input-product/upload') }}" method="post" name="input-form" id="input-form" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="kode_produk">Code product</label>
-            <input type="text" class="form-control" id="kode_produk" name="kode_produk">
+            <input type="text" class="form-control" id="kode_produk" name="kode_produk" required>
         </div>
         <div class="form-group">
             <label for="nama_product">Nama Product</label>
-            <input type="text" class="form-control" id="nama_produk" name="nama_produk">
+            <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
         </div>
         <div class="form-group">
             <label for="harga_product">Harga Product</label>
-            <input type="number" class="form-control" id="harga" name="harga">
+            <input type="number" class="form-control" id="harga" name="harga" required>
         </div>
         <div class="form-group">
             <label for="deskripsi_product">Deskripsi Product</label>
@@ -28,4 +28,11 @@
         <button class="btn btn-primary" type="submit" name="simpan">Tambah</button>
     </form>
 </div>
+@endsection
+@section('script')
+<script>
+    $(".input-form").submit(function(e) {
+    e.preventDefault();
+});
+</script>
 @endsection

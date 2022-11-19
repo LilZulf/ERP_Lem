@@ -1,66 +1,84 @@
 @extends('admin')
+@section('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
+@endsection
 @section('main')
+<h1 class="h3 mb-4 text-gray-800">Insert Bill of Materials</h1>
 <div class="container">
     <form>
         <div class="row row-cols-3">
             <div class="form-group">
                 <label for="select_item">Pilih Product</label>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                      Pilih Product
+                <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" onclick="myFunction()" type="button" data-toggle="dropdown" aria-expanded="false">
+                        Pilih Product
                     </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Item 1</a>
-                      <a class="dropdown-item" href="#">Item 2</a>
-                      <a class="dropdown-item" href="#">Item 3</a>
+                    <div id="myDropdown" class="dropdown-menu">
+                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                        <a class="dropdown-item" href="#">Hua</a>
+                        <a class="dropdown-item" href="#">Big popa</a>
+                        <a class="dropdown-item" href="#">Hel yeah</a>
                     </div>
-                  </div>
+                </div> -->
+                <br>
+                <select class="theSelect">
+                    @if($products->count())
+                    @foreach($products as $item)
+                    <option value="{{$item->kode_produk}}">{{$item->nama_produk}}</option>
+                    @endforeach
+                    @endif
+                </select>
             </div>
-            <div class="container-fluid mt-4 mr-3 align-content-end">
+            <!-- <div class="container-fluid mt-4 mr-3 align-content-end">
                 <button type="button" class="btn btn-primary ">Print</button>
-            </div>
+            </div> -->
         </div>
+        @if($first == false)
         <div class="form-group">
             <label for="select_item">Pilih Material</label>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Material
+                    Pilih Material
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Item 1</a>
-                  <a class="dropdown-item" href="#">Item 2</a>
-                  <a class="dropdown-item" href="#">Item 3</a>
+                    <a class="dropdown-item" href="#">Item 1</a>
+                    <a class="dropdown-item" href="#">Item 2</a>
+                    <a class="dropdown-item" href="#">Item 3</a>
                 </div>
-              </div>
+            </div>
         </div>
-       <div class="row row-cols-3">
-        <div class="form-group">
-            <label for="quantity_material">Quantity Material</label>
-            <input type="text" class="form-control" id="quantity_material">
-        </div>
-        <div class="form-group mt-2 ml-3">
-            <label for=""></label>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  Pilih Satuan
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Item 1</a>
-                  <a class="dropdown-item" href="#">Item 2</a>
-                  <a class="dropdown-item" href="#">Item 3</a>
+        <div class="row row-cols-3">
+            <div class="form-group">
+                <label for="quantity_material">Quantity Material</label>
+                <input type="text" class="form-control" id="quantity_material">
+            </div>
+            <div class="form-group mt-2 ml-3">
+                <label for=""></label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        Pilih Satuan
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Item 1</a>
+                        <a class="dropdown-item" href="#">Item 2</a>
+                        <a class="dropdown-item" href="#">Item 3</a>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
-       </div>
-       <fieldset disabled>
-        <div class="form-group">
-            <label for="harga_material">Harga Material</label>
-            <input type="text" class="form-control" id="harga_material">
-        </div>    
-    </fieldset>  
-        <button type="submit" class="btn btn-primary">Add Bahan</button>    
-    </form> 
+        <fieldset disabled>
+            <div class="form-group">
+                <label for="harga_material">Harga Material</label>
+                <input type="text" class="form-control" id="harga_material">
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Add Bahan</button>
+        @else
+        <div></div>
+        @endif
+    </form>
 </div>
+@if($first == false)
 <div class="container-fluid mt-4">
     <table class="table table-bordered">
         <thead>
@@ -119,4 +137,14 @@
         </div>
     </div>
 </div>
+@else
+<div></div>
+@endif
+@endsection
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script>
+    $(".theSelect").select2();
+</script>
 @endsection

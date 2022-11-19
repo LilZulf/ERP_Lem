@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductModel extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     protected $table = "tb_produk";
     protected $primaryKey = 'kode_produk';
     public $incrementing = false;

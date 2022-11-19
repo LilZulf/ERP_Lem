@@ -25,16 +25,21 @@ class ManufactureController extends Controller
             'deskripsi_produk' => 'required',
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
+        if($request->hasfile('gambar')){
+            $image = $request->file('gambar');
+            $nama_gambar = time()."_".$image->getClientOriginalName();
+            $destinationPath = public_path('/gambar');
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->resize(150, 150, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$nama_gambar);
+            $image->move($destinationPath, $nama_gambar);
     
-        $image = $request->file('gambar');
-        $nama_gambar = time()."_".$image->getClientOriginalName();
-        $destinationPath = public_path('/gambar');
-        $imgFile = Image::make($image->getRealPath());
-        $imgFile->resize(150, 150, function ($constraint) {
-		    $constraint->aspectRatio();
-		})->save($destinationPath.'/'.$nama_gambar);
-        $image->move($destinationPath, $nama_gambar);
-
+        }
+        else{
+            $nama_gambar = "placeholder.png";
+        }
+    
         ProductModel::create([
             'kode_produk' => $request->kode_produk,
             'nama_produk' => $request->nama_produk,
