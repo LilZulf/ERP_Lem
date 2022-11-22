@@ -23,6 +23,7 @@ class ManufactureController extends Controller
             'nama_produk' => 'required',
             'harga' => 'required',
             'deskripsi_produk' => 'required',
+            'status' => 'required',
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
         if($request->hasfile('gambar')){
@@ -45,6 +46,7 @@ class ManufactureController extends Controller
             'nama_produk' => $request->nama_produk,
             'kuantitas' => 0,
             'harga' => $request->harga,
+            'status' => $request->status,
             'deskripsi_produk' => $request->deskripsi_produk,
             'gambar' => $nama_gambar
         ]);
@@ -60,6 +62,7 @@ class ManufactureController extends Controller
             'nama_produk' => 'required',
             'harga' => 'required',
             'deskripsi_produk' => 'required',
+            'status' => 'required',
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
 
@@ -67,6 +70,7 @@ class ManufactureController extends Controller
         $product->nama_produk = $request->nama_produk;
         $product->harga = $request->harga;
         $product->deskripsi_produk = $request->deskripsi_produk;
+        $product->status = $request->status;
 
         if($request->hasfile('gambar')) {
 

@@ -19,7 +19,18 @@
             <label for="deskripsi_product">Deskripsi Product</label>
             <textarea class="form-control" id="deskripsi_produk" name="deskripsi_produk" rows="3"></textarea>
         </div>
-
+        <div class="form-group">
+            <input class="form-control-radio" type="radio" name="status" id="flexRadioDefault1" value="1" checked>
+            <label class="form-check-label" for="flexRadioDefault1">
+                Produk
+            </label>
+        </div>
+        <div class="form-group">
+            <input class="form-control-radio" type="radio" name="status" value="2" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                Bahan
+            </label>
+        </div>
         <div class="form-group">
             <label for="exampleFormControlFile1">Pilih Gambar Product</label>
             <input type="file" class="form-control-file" id="gambar" name="gambar">
@@ -32,7 +43,7 @@
 @section('script')
 <script>
     $(".input-form").submit(function(e) {
-    e.preventDefault();
-});
+        e.preventDefault();
+    });
 </script>
 @endsection
