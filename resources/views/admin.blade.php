@@ -64,6 +64,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/product">All Produk</a>
                         <a class="collapse-item" href="/product/input-product">Input Produk</a>
+                        <a class="collapse-item" href="/product/mo">Manufacture Order</a>
                     </div>
                 </div>
             </li>
