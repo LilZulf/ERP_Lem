@@ -27,3 +27,4 @@ Route::delete('/delete-product/{id_product}', [ManufactureController::class,'del
 Route::get('/product/input-product', [ManufactureController::class,'input']);
 Route::get('/product/bom', [BomController::class,'material']);
 Route::get('/product/bom-input', [BomController::class,'materialInput']);
+Route::get('/product/bom-input-item', [BomController::class,'materialInputItems']);

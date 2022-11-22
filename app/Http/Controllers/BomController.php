@@ -19,4 +19,7 @@ class BomController extends Controller
         $produk = ProductModel::all();
         return view('manufacture.bom',['first' => $first,'products' => $produk]);
     }
+    public function materialInputItems(){
+        return view('manufacture.bom-item');
+    }
 }
