@@ -98,5 +98,8 @@ class ManufactureController extends Controller
     public function material(){
         return view('manufacture.bom');
     }
+    public function manufactureOrder(){
+        return view('manufacture.manufacture-order');
+    }
 
 }
