@@ -3,6 +3,7 @@
 use App\Http\Controllers\BomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufactureController;
+use App\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::get('/product/bom', [BomController::class,'material']);
 Route::get('/product/bom-input', [BomController::class,'materialInput']);
 Route::get('/product/bom-input-item', [BomController::class,'materialInputItems']);
 Route::get('/product/mo', [ManufactureController::class,'manufactureOrder']);
+Route::get('/sales/rfq', [VendorController::class,'rfq']);
