@@ -12,7 +12,7 @@ class ProductModel extends Model
     protected $primaryKey = 'kode_produk';
     public $incrementing = false;
     protected $fillable = ['kode_produk', 'nama_produk', 'deskripsi_produk',
-        'gambar', 'kuantitas', 'harga'
+        'gambar', 'kuantitas', 'harga', 'status'
     ];
     public $timestamps = false;
 }

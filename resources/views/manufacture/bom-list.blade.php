@@ -20,7 +20,7 @@
                 <td>{{$item->nama_produk}}</td>
                 <td>{{$item->tanggal}}</td>
                 <td>
-                    <a href="" class="btn btn-warning" role="button">Edit</a>
+                    <a href="{{ url('/product/bom-input-item/'.$item->kode_bom) }}" class="btn btn-warning" role="button">Edit</a>
                     <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
                     <a href="" class="btn btn-info" role="button">Cetak</a>
                 </td>

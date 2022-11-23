@@ -78,6 +78,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/sales">All Record Sales</a>
                         <a class="collapse-item" href="/sales/rfq">RFQ</a>
+                        <a class="collapse-item" href="/sales/vendor-input">Vendor</a>
                     </div>
                 </div>
             </li>
