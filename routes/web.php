@@ -4,6 +4,7 @@ use App\Http\Controllers\BomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufactureController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,5 @@ Route::get('/product/bom-delete-item/{kode_bom_list}', [BomController::class,'de
 Route::get('/product/mo', [ManufactureController::class,'manufactureOrder']);
 Route::get('/sales/rfq', [VendorController::class,'rfq']);
 Route::get('/sales/vendor-input', [VendorController::class,'vendor']);
+Route::get('/sales/po', [VendorController::class,'po']);
+Route::get('/inventory/inventory', [InventoryController::class,'inventory']);
