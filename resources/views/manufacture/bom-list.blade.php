@@ -7,6 +7,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Kode Bom</th>
                 <th scope="col">Nama Produk</th>
+                <th scope="col">Harga Produksi</th>
                 <th scope="col">Tanggal Buat</th>
                 <th scope="col">Action</th>
             </tr>
@@ -18,6 +19,7 @@
                 <th scope="row">{{$loop->iteration}}</th>
                 <td>{{$item->kode_bom}}</td>
                 <td>{{$item->nama_produk}}</td>
+                <td>{{$item->total_harga}}</td>
                 <td>{{$item->tanggal}}</td>
                 <td>
                     <a href="{{ url('/product/bom-input-item/'.$item->kode_bom) }}" class="btn btn-warning" role="button">Edit</a>

@@ -54,6 +54,30 @@ class BomController extends Controller
             'quantity' => $request->quantity,
             'satuan' => $request->satuan
         ]);
+        $product = ProductModel::find($request->kode_produk);
+        $harga = $product->harga;
+        $bom = BomModel::find($request->kode_bom);
+        $harga_lama = $bom->total_harga;
+        $harga_baru = $harga_lama + ($harga * $request->quantity);
+
+        $bom->total_harga = $harga_baru;
+        $bom->save();
+
         return redirect('/product/bom-input-item/' . $request->kode_bom);
     }
+    public function deleteList($kode_bom_list){
+        $bom_list = BomListModel::find($kode_bom_list);
+        $product = ProductModel::find($bom_list->kode_produk);
+        $harga = $product->harga;
+        $bom = BomModel::find($bom_list->kode_bom);
+        $harga_lama = $bom->total_harga;
+        $harga_baru = $harga_lama - ($harga * $bom_list->quantity);
+
+        $bom->total_harga = $harga_baru;
+        $bom->save();
+
+        $bom_list->delete();
+       return redirect('/product/bom-input-item/' . $bom_list->kode_bom);
+    }
+
 }

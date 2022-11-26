@@ -81,7 +81,7 @@
                 @endphp
                 <td>{{$total}}</td>
                 <td>
-                    <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a>
+                    <a href="{{ url('product/bom-delete-item/'.$item->kode_bom_list) }}" class="btn btn-danger delete-confirm" role="button">Hapus</a>
                 </td>
             </tr>
             @endforeach
