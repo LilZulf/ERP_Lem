@@ -13,4 +13,7 @@ class VendorController extends Controller
     public function po(){
         return view('sales.po');
     }
+    public function vendor(){
+        return view('sales.input-vendor');
+    }
 }

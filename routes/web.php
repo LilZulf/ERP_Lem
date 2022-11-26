@@ -22,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/product', [ManufactureController::class,'allProduct']);
+Route::get('/product/pdf', [ManufactureController::class,'printPdf']);
 Route::post('/input-product/upload', [ManufactureController::class,'upload']);
 Route::get('/edit-product/{id_product}', [ManufactureController::class,'edit']);
 Route::put('/edit-product/update/{id_product}', [ManufactureController::class,'update']);

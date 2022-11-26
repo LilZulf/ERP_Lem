@@ -36,7 +36,7 @@
                         </button>
                     </form>
                     <!-- <a href="" class="btn btn-danger delete-confirm" role="button">Hapus</a> -->
-                    <a href="" class="btn btn-info" role="button">Cetak</a>
+                    <a href="/product/pdf" class="btn btn-info" role="button">Cetak</a>
                 </td>
             </tr>
 

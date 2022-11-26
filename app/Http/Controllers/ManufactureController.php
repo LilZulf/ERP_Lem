@@ -6,6 +6,7 @@ use App\Models\ProductModel;
 use Illuminate\Http\Request;
 use File;
 use Image;
+use PDF;
 
 class ManufactureController extends Controller
 {
@@ -104,6 +105,11 @@ class ManufactureController extends Controller
     }
     public function manufactureOrder(){
         return view('manufacture.manufacture-order');
+    }
+    public function printPdf()
+    {
+    	$pdf = PDF::loadview('manufacture.product-pdf');
+    	return $pdf->download('laporan-pegawai-pdf');
     }
 
 }
