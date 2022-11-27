@@ -9,4 +9,8 @@ class VendorController extends Controller
     public function rfq(){
         return view('sales.rfq'); 
     }
+
+    public function po(){
+        return view('sales.po');
+    }
 }
