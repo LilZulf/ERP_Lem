@@ -16,4 +16,7 @@ class VendorController extends Controller
     public function vendor(){
         return view('sales.input-vendor');
     }
+    public function upload(){
+        
+    }
 }

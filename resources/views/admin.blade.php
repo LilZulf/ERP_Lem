@@ -72,15 +72,34 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSales" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Sales</span>
+                    <span>Purchesing</span>
                 </a>
                 <div id="collapseSales" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/sales">All Record Sales</a>
+                        <a class="collapse-item" href="/sales">All Purchese</a>
                         <a class="collapse-item" href="/sales/rfq">RFQ</a>
                         <a class="collapse-item" href="/sales/vendor-input">Vendor</a>
                     </div>
                 </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSales1" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Sales</span>
+                </a>
+                <div id="collapseSales1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/sales/input">Sales Quotation</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/sales/vendor-input" >
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Stakeholder</span>
+                </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->

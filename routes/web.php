@@ -35,7 +35,12 @@ Route::get('/product/bom-input-item/{kode_bom}', [BomController::class,'material
 Route::post('/product/bom-input-item', [BomController::class,'uploadList']);
 Route::get('/product/bom-delete-item/{kode_bom_list}', [BomController::class,'deleteList']);
 Route::get('/product/mo', [ManufactureController::class,'manufactureOrder']);
+Route::post('/product/mo', [ManufactureController::class,'moUpload']);
+Route::put('/product/mo/update/{kode_mo}', [ManufactureController::class,'moUpdate']);
 Route::get('/sales/rfq', [VendorController::class,'rfq']);
 Route::get('/sales/vendor-input', [VendorController::class,'vendor']);
 Route::get('/sales/po', [VendorController::class,'po']);
+Route::get('/sales/input',function () {
+    return view('sales.sales');
+});
 Route::get('/inventory/inventory', [InventoryController::class,'inventory']);

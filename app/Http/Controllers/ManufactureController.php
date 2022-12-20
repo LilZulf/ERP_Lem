@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MoModel;
 use App\Models\ProductModel;
+use App\Models\BomModel;
 use Illuminate\Http\Request;
 use File;
 use Image;
@@ -104,12 +106,44 @@ class ManufactureController extends Controller
         return view('manufacture.bom');
     }
     public function manufactureOrder(){
-        return view('manufacture.manufacture-order');
+        $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
+        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+        $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
+    }
+    public function moUpload(Request $request){
+        MoModel::create([
+            'kode_mo' => $request->kode_mo,
+            'kode_bom' => $request->kode_bom,
+            'quantity' => $request->quantity,
+            'status' => 1,
+        ]);
+        $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
+        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+        $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
+    }
+    public function moUpdate($kode_mo,Request $request){
+        $mo = MoModel::find($kode_mo);
+        $mo->status = $mo->status + 1;
+        $mo->kode_bom =  $mo->kode_bom;
+        $mo->quantity =  $mo->quantity;
+        $mo->save();
+        $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
+        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+        $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
     }
     public function printPdf()
     {
     	$pdf = PDF::loadview('manufacture.product-pdf');
-    	return $pdf->download('laporan-pegawai-pdf');
+    	return $pdf->stream();
     }
 
 }
