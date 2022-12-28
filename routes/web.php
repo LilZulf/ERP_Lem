@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufactureController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\AccountingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,6 @@ Route::get('/sales/input',function () {
 });
 Route::get('/product/ca-item/{kode_bom}', [ManufactureController::class,'caItems']);
 Route::get('/inventory/inventory', [InventoryController::class,'inventory']);
+Route::get('/accounting/accounting', [AccountingController::class,'accounting']);
+Route::get('/accounting/rfq', [AccountingController::class,'accountingRfq']);
+Route::get('/accounting/vendor', [AccountingController::class,'accountingVendor']);

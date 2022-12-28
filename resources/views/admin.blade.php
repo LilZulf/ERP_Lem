@@ -115,7 +115,7 @@
                     </div>
                 </div>
             </li>
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Nav Item - Inventory Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-list"></i>
@@ -124,6 +124,19 @@
                 <div id="collapseInventory" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/inventory/inventory">Inventory List</a>
+                        {{-- <a class="collapse-item" href="/product/bom-input">Insert Bom</a> --}}
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Accounting Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounting" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Accounting</span>
+                </a>
+                <div id="collapseAccounting" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/accounting/accounting">Accounting</a>
                         {{-- <a class="collapse-item" href="/product/bom-input">Insert Bom</a> --}}
                     </div>
                 </div>
