@@ -1,6 +1,7 @@
 @extends('admin')
 @section('head')
 <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
 @endsection
 @section('main')
 <div class="container">
@@ -109,5 +110,10 @@
     $(document).ready( function () {
     $('#myTable').DataTable();
 } );
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script>
+    $(".theSelect").select2();
 </script>
 @endsection

@@ -47,7 +47,7 @@
         <th scope="row">{{$loop->iteration}}</th>
         <td>{{$item->kode_mo}}</td>
         @if($item->status == 3)
-        <td><a  href="{{ url('/product/bom-input-item/'.$item->kode_bom) }}">{{$item->nama_produk}}</a></td>
+        <td><a  href="{{ url('/product/ca-item/'.$item->kode_bom) }}">{{$item->nama_produk}}</a></td>
         @else
         <td>{{$item->nama_produk}}</td>
         @endif
@@ -80,8 +80,6 @@
             <button  type="submit" onclick="return confirm('Sudah selesai?');" class="btn btn-info">Mark as done</button>
             @endif
           </form>
-
-
           <button href="#" class="btn btn-danger">Cancel Produce</button>
         </td>
       </tr>

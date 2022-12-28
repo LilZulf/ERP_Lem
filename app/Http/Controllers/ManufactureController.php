@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MoModel;
 use App\Models\ProductModel;
 use App\Models\BomModel;
+use App\Models\BomListModel;
 use Illuminate\Http\Request;
 use File;
 use Image;
@@ -12,15 +13,18 @@ use PDF;
 
 class ManufactureController extends Controller
 {
-    public function input(){
+    public function input()
+    {
         return view('manufacture.input-product');
     }
-    public function allProduct(){
+    public function allProduct()
+    {
         $product = ProductModel::all();
-        return view('manufacture.product',['products' => $product]); 
+        return view('manufacture.product', ['products' => $product]);
     }
 
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
         $this->validate($request, [
             'kode_produk' => 'required',
             'nama_produk' => 'required',
@@ -29,21 +33,19 @@ class ManufactureController extends Controller
             'status' => 'required',
             'gambar' => 'file|image|mimes:jpeg,png,jpg:max:2048'
         ]);
-        if($request->hasfile('gambar')){
+        if ($request->hasfile('gambar')) {
             $image = $request->file('gambar');
-            $nama_gambar = time()."_".$image->getClientOriginalName();
+            $nama_gambar = time() . "_" . $image->getClientOriginalName();
             $destinationPath = public_path('/gambar');
             $imgFile = Image::make($image->getRealPath());
             $imgFile->resize(150, 150, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$nama_gambar);
+            })->save($destinationPath . '/' . $nama_gambar);
             $image->move($destinationPath, $nama_gambar);
-    
-        }
-        else{
+        } else {
             $nama_gambar = "placeholder.png";
         }
-    
+
         ProductModel::create([
             'kode_produk' => $request->kode_produk,
             'nama_produk' => $request->nama_produk,
@@ -55,12 +57,14 @@ class ManufactureController extends Controller
         ]);
         return redirect('/product');
     }
-    public function edit($kode_produk){
+    public function edit($kode_produk)
+    {
         $product = ProductModel::find($kode_produk);
-        return view('manufacture.update-product', compact('product'),['product' => $product]);
+        return view('manufacture.update-product', compact('product'), ['product' => $product]);
     }
 
-    public function update($kode_produk,Request $request){
+    public function update($kode_produk, Request $request)
+    {
         $this->validate($request, [
             'nama_produk' => 'required',
             'harga' => 'required',
@@ -75,45 +79,49 @@ class ManufactureController extends Controller
         $product->deskripsi_produk = $request->deskripsi_produk;
         $product->status = $request->status;
 
-        if($request->hasfile('gambar')) {
+        if ($request->hasfile('gambar')) {
 
-            File::delete('gambar/'.$product->gambar);
+            File::delete('gambar/' . $product->gambar);
             $image = $request->file('gambar');
-            $nama_gambar = time()."_".$image->getClientOriginalName();
+            $nama_gambar = time() . "_" . $image->getClientOriginalName();
             $destinationPath = public_path('/gambar');
             $imgFile = Image::make($image->getRealPath());
             $imgFile->resize(150, 150, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$nama_gambar);
+            })->save($destinationPath . '/' . $nama_gambar);
             $image->move($destinationPath, $nama_gambar);
-            
+
             $product->gambar = $nama_gambar;
         }
 
         $product->save();
         return redirect('/product');
     }
-    public function delete($kode_produk){
+    public function delete($kode_produk)
+    {
         $product = ProductModel::find($kode_produk);
-        File::delete('gambar/'.$product->gambar);
+        File::delete('gambar/' . $product->gambar);
 
         // hapus data
         $product->delete();
         return redirect('/product');
     }
 
-    public function material(){
+    public function material()
+    {
         return view('manufacture.bom');
     }
-    public function manufactureOrder(){
+    public function manufactureOrder()
+    {
         $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
-        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+            ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+            ->get(['tb_mo.*', 'tb_produk.nama_produk']);
         $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
-        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
+            ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order', ['moDatas' => $moDatas, 'boms' => $boms]);
     }
-    public function moUpload(Request $request){
+    public function moUpload(Request $request)
+    {
         MoModel::create([
             'kode_mo' => $request->kode_mo,
             'kode_bom' => $request->kode_bom,
@@ -121,29 +129,40 @@ class ManufactureController extends Controller
             'status' => 1,
         ]);
         $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
-        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+            ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+            ->get(['tb_mo.*', 'tb_produk.nama_produk']);
         $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
-        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
+            ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order', ['moDatas' => $moDatas, 'boms' => $boms]);
     }
-    public function moUpdate($kode_mo,Request $request){
+    public function moUpdate($kode_mo, Request $request)
+    {
         $mo = MoModel::find($kode_mo);
         $mo->status = $mo->status + 1;
         $mo->kode_bom =  $mo->kode_bom;
         $mo->quantity =  $mo->quantity;
         $mo->save();
         $moDatas = MoModel::join('tb_bom', 'tb_mo.kode_bom', '=', 'tb_bom.kode_bom')
-        ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_mo.*', 'tb_produk.nama_produk']);
+            ->join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+            ->get(['tb_mo.*', 'tb_produk.nama_produk']);
         $boms = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
-        ->get(['tb_bom.*', 'tb_produk.nama_produk']);
-        return view('manufacture.manufacture-order',['moDatas' => $moDatas, 'boms' => $boms]);
+            ->get(['tb_bom.*', 'tb_produk.nama_produk']);
+        return view('manufacture.manufacture-order', ['moDatas' => $moDatas, 'boms' => $boms]);
+    }
+    public function caItems($kode_bom)
+    {
+        $bom = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
+            ->where('tb_bom.kode_bom', $kode_bom)
+            ->first(['tb_bom.*', 'tb_produk.nama_produk', 'tb_produk.harga']);
+        $bomList = BomListModel::join('tb_produk', 'tb_bom_list.kode_produk', '=', 'tb_produk.kode_produk')
+            ->where('tb_bom_list.kode_bom', $kode_bom)
+            ->get(['tb_bom_list.*', 'tb_produk.nama_produk', 'tb_produk.harga', 'tb_produk.kuantitas']);
+        $produk = ProductModel::where('status', 2)->get();
+        return view('manufacture.ca-item', ['bom' => $bom, 'materials' => $produk, 'list' => $bomList]);
     }
     public function printPdf()
     {
-    	$pdf = PDF::loadview('manufacture.product-pdf');
-    	return $pdf->stream();
+        $pdf = PDF::loadview('manufacture.product-pdf');
+        return $pdf->stream();
     }
-
 }
