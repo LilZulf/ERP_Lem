@@ -42,6 +42,7 @@ Route::get('/sales/rfq', [VendorController::class,'rfq']);
 Route::post('/sales/rfq', [VendorController::class,'uploadRfq']);
 Route::get('/sales/rfq/{kode_rfq}', [VendorController::class,'rfqInputItems']);
 Route::post('/sales/rfq/list', [VendorController::class,'rfqUploadItems']);
+Route::post('/sales/rfq/save', [VendorController::class,'rfqSaveItems']);
 Route::get('/sales/vendor-input', [VendorController::class,'vendor']);
 Route::get('/sales/vendor-list', [VendorController::class,'vendor']);
 Route::post('/sales/vendor-input', [VendorController::class,'uploadVendor']);

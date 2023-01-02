@@ -11,7 +11,7 @@ class RfqModel extends Model
     protected $table = "tb_rfq";
     protected $primaryKey = 'kode_rfq';
     public $incrementing = false;
-    protected $fillable = ['kode_rfq', 'kode_vendor', 'tanggal_transaksi',
+    protected $fillable = ['kode_rfq', 'kode_vendor', 'tanggal_transaksi', 'tanggal_kirim',
         'status', 'total_harga'
     ];
     public $timestamps = false;

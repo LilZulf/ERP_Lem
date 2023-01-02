@@ -15,6 +15,7 @@
       <label for="vendor">Vendor</label>
       <input type="text" class="form-control" id="vendor" value="{{$rfq->nama.' - '.$rfq->alamat}}" name="vendor" readonly>
     </div>
+    @if($rfq->status == 0 )
     <label for="kode_produk">Pilih Produk</label>
     <div class="dropdown">
       <select class="theSelect" name="kode_produk">
@@ -45,6 +46,7 @@
       </div>
     </div>
     <button type="submit" name="simpan" class="btn btn-primary my-3">Add Bahan</button>
+    @endif
   </form>
   <div class="container-fluid">
     <table class="table table-bordered" id="myTable" name="myTable">
@@ -76,17 +78,38 @@
                 }}
           @endphp
           <td>{{$total}}</td>
+          @if($rfq->status == 0)
           <td>
             <a href="{{ url('product/bom-delete-item/'.$item->kode_bom_list) }}" class="btn btn-danger delete-confirm" role="button">Hapus</a>
           </td>
+          @else
+          <td>
+          </td>
+          @endif
         </tr>
         @endforeach
         @endif
       </tbody>
     </table>
   </div>
-  <buttonc class="btn btn-success">Save</buttonc>
+  <label for="text_harga" class="font-weight-bold"> Total Harga : </label>
+  <label for="total_harga" id="val"> XXXXX</label>
+  <br>
+  @if($rfq->status == 0 )
+  <form action="{{ url('/sales/rfq/save') }}" method="post" class="btn p-0" name="input-form" id="input-form">
+    {{ csrf_field() }}
+    <input type="text" id="kode_rfq" value="{{$rfq->kode_rfq}}" name="kode_rfq" hidden>
+    <button type="submit" onclick="return confirm('Confirm Order?');" class="btn btn-success">Confirm Order</button>
+  </form>
   <button class="btn btn-danger">Discard</button>
+  @elseif($rfq->status == 1)
+  <form action="{{ url('/sales/rfq/save') }}" method="post" class="btn p-0" name="input-form" id="input-form">
+    {{ csrf_field() }}
+    <input type="text" id="kode_rfq" value="{{$rfq->kode_rfq}}" name="kode_rfq" hidden>
+    <button type="submit" onclick="return confirm('Proses Make Order?');" class="btn btn-success">Create Bill</button>
+  </form>
+  <button class="btn btn-primary">Print </button>
+  @endif
 </div>
 @endsection
 @section('script')
@@ -103,9 +126,19 @@
     $('#myTable').DataTable();
   });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
   $(".theSelect").select2();
+</script>
+<script>
+  updateSubTotal(); // Initial call
+
+  function updateSubTotal() {
+    var table = document.getElementById("myTable");
+    let subTotal = Array.from(table.rows).slice(1).reduce((total, row) => {
+      return total + parseFloat(row.cells[6].innerHTML);
+    }, 0);
+    document.getElementById("val").innerHTML = "Rp." + subTotal;
+  }
 </script>
 @endsection

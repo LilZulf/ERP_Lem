@@ -56,6 +56,16 @@ class VendorController extends Controller
         $rfq->save();
         return redirect('sales/rfq/'.$request->kode_rfq);
     }
+    public function rfqSaveItems(Request $request){
+        $rfq = RfqModel::find($request->kode_rfq);
+        $rfq->status = $rfq->status + 1;
+        $rfq->kode_vendor =  $rfq->kode_vendor;
+        $rfq->total_harga =  $rfq->total_harga;
+        $rfq->tanggal_transaksi =  $rfq->tanggal_transaksi;
+        $rfq->save();
+       
+        return redirect('sales/rfq/'.$request->kode_rfq);
+    }
 
     public function po(){
         return view('sales.po');
