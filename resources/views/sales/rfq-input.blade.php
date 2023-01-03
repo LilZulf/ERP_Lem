@@ -25,10 +25,6 @@
                         @endif
                     </select>
                 </div>
-                <div class="form-group" id="datetimepickerDemo">
-                    <label for="nama_product">ID RFQ</label>
-                    <input type="text" class="form-control" id="kode_rfq" name="kode_rfq" required>
-                </div>
                 <button class="btn btn-primary" type="submit" name="simpan">Tambah</button>
             </div>
         </form>

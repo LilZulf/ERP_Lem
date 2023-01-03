@@ -76,7 +76,7 @@
                 </a>
                 <div id="collapseSales" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/sales">All Purchese</a>
+                        <a class="collapse-item" href="/sales/all-rfq">All Purchese</a>
                         <a class="collapse-item" href="/sales/rfq">RFQ</a>
                         <a class="collapse-item" href="/sales/vendor-input">Vendor</a>
                     </div>

@@ -103,12 +103,39 @@
   </form>
   <button class="btn btn-danger">Discard</button>
   @elseif($rfq->status == 1)
-  <form action="{{ url('/sales/rfq/save') }}" method="post" class="btn p-0" name="input-form" id="input-form">
+  <form action="{{ url('/sales/rfq/create-bill') }}" method="post" class="p-0" name="input-form" id="input-form">
+    {{ csrf_field() }}
+    <label>Pilih Pembayaran :</label>
+    <div class="form-group">
+      <input class="form-control-radio" type="radio" name="payment" id="flexRadioDefault1" value="1" checked>
+      <label class="form-check-label" for="flexRadioDefault1">
+        Cash
+      </label>
+    </div>
+    <div class="form-group">
+      <input class="form-control-radio" type="radio" name="payment" value="2" id="flexRadioDefault2">
+      <label class="form-check-label" for="flexRadioDefault2">
+        Transfer
+      </label>
+    </div>
+    <input type="text" id="kode_rfq" value="{{$rfq->kode_rfq}}" name="kode_rfq" hidden>
+    <button type="submit" onclick="return confirm('Proses Create Bill?');" class="btn btn-success">Create Bill</button>
+  </form>
+  @elseif($rfq->status == 2)
+  <label>Metode Pembayaran : 
+    {{$rfq->metode_pembayaran == 1 ? 'Cash' : 'Transfer'}}
+  </label><br>
+  <form action="{{ url('/sales/rfq/confirm-bill') }}" method="post" class="btn p-0" name="input-form" id="input-form">
     {{ csrf_field() }}
     <input type="text" id="kode_rfq" value="{{$rfq->kode_rfq}}" name="kode_rfq" hidden>
-    <button type="submit" onclick="return confirm('Proses Make Order?');" class="btn btn-success">Create Bill</button>
+    <button type="submit" onclick="return confirm('Confirm Bill?');" class="btn btn-success">Confirm Bill</button>
   </form>
-  <button class="btn btn-primary">Print </button>
+  @elseif($rfq->status == 3)
+  <label>Metode Pembayaran : 
+    {{$rfq->metode_pembayaran == 1 ? 'Cash' : 'Transfer'}}
+  </label><br>
+  <label>Status Pembayaran : Lunas 
+  </label><br>
   @endif
 </div>
 @endsection
