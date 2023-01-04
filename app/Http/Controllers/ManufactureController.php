@@ -6,6 +6,7 @@ use App\Models\MoModel;
 use App\Models\ProductModel;
 use App\Models\BomModel;
 use App\Models\BomListModel;
+use App\Models\TempProduceModel;
 use Illuminate\Http\Request;
 use File;
 use Image;
@@ -22,7 +23,18 @@ class ManufactureController extends Controller
         $product = ProductModel::all();
         return view('manufacture.product', ['products' => $product]);
     }
-
+    public function getAvailability($bomList, $mo)
+    {
+        $avail = true;
+        foreach ($bomList as $item) {
+            if ($item->kuantitas < ($item->quantity * $mo->quantity)) {
+                $avail = false;
+            } else {
+                $avail = true;
+            }
+        }
+        return $avail;
+    }
     public function upload(Request $request)
     {
         $this->validate($request, [
@@ -149,8 +161,10 @@ class ManufactureController extends Controller
             ->get(['tb_bom.*', 'tb_produk.nama_produk']);
         return view('manufacture.manufacture-order', ['moDatas' => $moDatas, 'boms' => $boms]);
     }
-    public function caItems($kode_bom)
+    public function caItems($kode_mo)
     {
+        $mo = MoModel::find($kode_mo);
+        $kode_bom = $mo->kode_bom;
         $bom = BomModel::join('tb_produk', 'tb_bom.kode_produk', '=', 'tb_produk.kode_produk')
             ->where('tb_bom.kode_bom', $kode_bom)
             ->first(['tb_bom.*', 'tb_produk.nama_produk', 'tb_produk.harga']);
@@ -158,8 +172,50 @@ class ManufactureController extends Controller
             ->where('tb_bom_list.kode_bom', $kode_bom)
             ->get(['tb_bom_list.*', 'tb_produk.nama_produk', 'tb_produk.harga', 'tb_produk.kuantitas']);
         $produk = ProductModel::where('status', 2)->get();
-        return view('manufacture.ca-item', ['bom' => $bom, 'materials' => $produk, 'list' => $bomList]);
+        $avail = $this->getAvailability($bomList, $mo);
+        return view('manufacture.ca-item', ['bom' => $bom, 'materials' => $produk, 'mo' => $mo, 'list' => $bomList, 'avail' => $avail]);
     }
+
+    public function moProduce($kode_mo)
+    {
+        $mo = MoModel::find($kode_mo);
+        $kode_bom = $mo->kode_bom;
+        $bomList = BomListModel::join('tb_produk', 'tb_bom_list.kode_produk', '=', 'tb_produk.kode_produk')
+            ->where('tb_bom_list.kode_bom', $kode_bom)
+            ->get(['tb_bom_list.*', 'tb_produk.nama_produk', 'tb_produk.harga', 'tb_produk.kuantitas']);
+        foreach ($bomList as $list) {
+            TempProduceModel::create([
+                'kode_bom_list' => $list->kode_bom_list,
+                'quantity_order' => $list->quantity * $mo->quantity,
+            ]);
+        }
+        $mo->status = $mo->status + 1;
+        $mo->save();
+        return redirect('/product/ca-item/' . $kode_mo);
+    }
+
+    public function moProsesProduce($kode_mo)
+    {
+        $mo = MoModel::find($kode_mo);
+        $kode_bom = $mo->kode_bom;
+        $bomList = BomListModel::join('tb_produk', 'tb_bom_list.kode_produk', '=', 'tb_produk.kode_produk')
+            ->where('tb_bom_list.kode_bom', $kode_bom)
+            ->get(['tb_bom_list.*', 'tb_produk.nama_produk', 'tb_produk.harga', 'tb_produk.kuantitas']);
+        $bom = BomModel::find($kode_bom);
+        $produk = ProductModel::find($bom->kode_produk);
+        $produk->kuantitas = $produk->kuantitas + $mo->quantity;
+        $produk->save();
+        foreach ($bomList as $list) {
+            $temp = TempProduceModel::where('kode_bom_list', $list->kode_bom_list)->get()->first();
+            $produk = ProductModel::find($list->kode_produk);
+            $produk->kuantitas = $produk->kuantitas - $temp->quantity_order;
+            $produk->save();
+            $tempDelete = TempProduceModel::find($temp->id);
+            $tempDelete->delete();
+        }
+        return redirect('/product/ca-item/' . $kode_mo);
+    }
+
     public function printPdf()
     {
         $pdf = PDF::loadview('manufacture.product-pdf');

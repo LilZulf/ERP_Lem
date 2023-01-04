@@ -37,6 +37,8 @@ Route::post('/product/bom-input-item', [BomController::class,'uploadList']);
 Route::get('/product/bom-delete-item/{kode_bom_list}', [BomController::class,'deleteList']);
 Route::get('/product/mo', [ManufactureController::class,'manufactureOrder']);
 Route::post('/product/mo', [ManufactureController::class,'moUpload']);
+Route::post('/product/mo-produce/{kode_mo}', [ManufactureController::class,'moProduce']);
+Route::post('/product/done/{kode_mo}', [ManufactureController::class,'moProsesProduce']);
 Route::put('/product/mo/update/{kode_mo}', [ManufactureController::class,'moUpdate']);
 Route::get('/sales/rfq', [VendorController::class,'rfq']);
 Route::get('/sales/all-rfq', [VendorController::class,'allRfq']);

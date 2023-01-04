@@ -28,7 +28,6 @@
                 <th scope="col">Harga Satuan</th>
                 <th scope="col">On Hand</th>
                 <th scope="col">Status</th>
-                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -38,13 +37,16 @@
                 <th scope="row">{{$loop->iteration}}</th>
                 <td>{{$item->kode_bom}}</td>
                 <td>{{$item->nama_produk}}</td>
-                <td>{{$item->quantity}}</td>
+                <td>{{$item->quantity * $mo->quantity}}</td>
                 <td>{{$item->satuan}}</td>
                 <td>{{$item->harga}}</td>
                 <td>{{$item->kuantitas}}</td>
-                <td><a href="{{ url('sales/rfq') }}"  class="btn btn-danger delete-confirm" role="">{{$item->kuantitas < $item->quantity ? 'Bahan Kurang!' : 'Tersedia'}}</a></td>
                 <td>
-                    <a href="{{ url('product/bom-delete-item/'.$item->kode_bom_list) }}" class="btn btn-danger delete-confirm" role="button">Hapus</a>
+                    @if($item->kuantitas < ($item->quantity * $mo->quantity ))
+                        <a href="{{ url('sales/rfq') }}" class="btn btn-danger delete-confirm" role="">Bahan Kurang</a>
+                        @else
+                        <span class="badge badge-success">Tersedia</span>
+                        @endif
                 </td>
             </tr>
             @endforeach
@@ -53,11 +55,18 @@
     </table>
     <div class="container-sm ">
         <div class="row"></div>
-        <div class="row mt-auto p-2 bd-highlight">
+        <!-- <div class="row mt-auto p-2 bd-highlight">
             <label for="text_harga" class="font-weight-bold"> Total Harga : </label>
             <label for="total_harga" id="val"> XXXXX</label>
-        </div>
+        </div> -->
     </div>
+    @if($avail == true && $mo->status == 3)
+    <form action="{{ url('/product/mo-produce/'.$mo->kode_mo ) }}" method="post" class="btn p-0" name="input-form" id="input-form">
+        {{ csrf_field() }}
+        <button type="submit" onclick="return confirm('Proses Produce?');" class="btn btn-info">Produce</button>
+    </form>
+    
+    @endif
 </div>
 @endsection
 @section('script')
@@ -66,15 +75,5 @@
 <script>
     $(".theSelect").select2();
 </script>
-<script>
-    updateSubTotal(); // Initial call
 
-    function updateSubTotal() {
-        var table = document.getElementById("myTable");
-        let subTotal = Array.from(table.rows).slice(1).reduce((total, row) => {
-            return total + parseFloat(row.cells[6].innerHTML);
-        }, 0);
-        document.getElementById("val").innerHTML = "Rp." + subTotal;
-    }
-</script>
 @endsection

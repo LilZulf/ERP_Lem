@@ -47,7 +47,7 @@
         <th scope="row">{{$loop->iteration}}</th>
         <td>{{$item->kode_mo}}</td>
         @if($item->status == 3)
-        <td><a  href="{{ url('/product/ca-item/'.$item->kode_bom) }}">{{$item->nama_produk}}</a></td>
+        <td><a href="{{ url('/product/ca-item/'.$item->kode_mo) }}">{{$item->nama_produk}}</a></td>
         @else
         <td>{{$item->nama_produk}}</td>
         @endif
@@ -67,19 +67,27 @@
 
         </td>
         <td>
+          @if($item->status == 1 )
           <form action="/product/mo/update/{{$item->kode_mo}}" method="post">
             @method('put')
             {{ csrf_field() }}
-            @if($item->status == 1 )
-            <button  type="submit" onclick="return confirm('Proses Mark as todo?');" class="btn btn-info">Mark as todo</button>
-            @elseif($item->status == 2)
-            <button  type="submit" onclick="return confirm('Proses CA?');" class="btn btn-info">Check avaliability</button>
-            @elseif($item->status == 3)
-            <button  type="submit" onclick="return confirm('Proses Produce?');" class="btn btn-info">Produce</button>
-            @elseif($item->status == 4)
-            <button  type="submit" onclick="return confirm('Sudah selesai?');" class="btn btn-info">Mark as done</button>
-            @endif
+            <button type="submit" onclick="return confirm('Proses Mark as todo?');" class="btn btn-info">Mark as todo</button>
           </form>
+          @elseif($item->status == 2)
+          <form action="/product/mo/update/{{$item->kode_mo}}" method="post">
+            @method('put')
+            {{ csrf_field() }}
+            <button type="submit" onclick="return confirm('Proses CA?');" class="btn btn-info">Check availability</button>
+          </form>
+          @elseif($item->status == 3)
+          <!-- <button  type="submit" onclick="return confirm('Proses Produce?');" class="btn btn-info">Produce</button> -->
+          @elseif($item->status == 4)
+          <form action="/product/done/{{$item->kode_mo}}" method="post">
+            @method('post')
+            {{ csrf_field() }}
+            <button type="submit" onclick="return confirm('Sudah selesai?');" class="btn btn-info">Mark as done</button>
+          </form>
+          @endif
           <button href="#" class="btn btn-danger">Cancel Produce</button>
         </td>
       </tr>
