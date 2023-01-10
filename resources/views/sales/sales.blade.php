@@ -91,7 +91,11 @@
             <label for="total_harga" id="val"> XXXXX</label>
         </div>
     </div>
-    <a href="#" class="btn btn-primary">Make Order</a>
+    @if($sales->status == 0)
+    <a href="{{ url('sales/save/'.$sales->kode_sales) }}" class="btn btn-primary">Make Order</a>
+    @elseif($sales->status == 1)
+    <a href="{{ url('sales/ca-item/'.$sales->kode_sales) }}" class="btn btn-warning">Check Availability</a>
+    @endif
 </div>
 @endsection
 @section('script')

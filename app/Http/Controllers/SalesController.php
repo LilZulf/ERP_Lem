@@ -76,12 +76,60 @@ class SalesController extends Controller
 
         return redirect('sales/input/'.$kode_sales);
     }
-    public function saveItems(Request $request)
+    public function saveItems($kode_sales)
     {
-        $sales = SalesModel::find($request->kode_sales);
+        $sales = SalesModel::find($kode_sales);
         $sales->status = $sales->status + 1;
         $sales->save();
-        return redirect('sales/input/' . $request->kode_sales);
+        return redirect('sales/input/' . $kode_sales);
+    }
+    public function caItems($kode_sales)
+    {
+        $sales = SalesModel::join('tb_stakeholder', 'tb_sales.kode_customer', '=', 'tb_stakeholder.kode')
+        ->where('tb_sales.kode_sales', $kode_sales)
+        ->first(['tb_sales.*', 'tb_stakeholder.nama', 'tb_stakeholder.alamat']);
+        $kode_sales = $sales->kode_sales;
+        $saleList = SalesListModel::join('tb_produk', 'tb_sales_list.kode_produk', '=', 'tb_produk.kode_produk')
+            ->where('tb_sales_list.kode_sales', $kode_sales)
+            ->get(['tb_sales_list.*', 'tb_produk.nama_produk', 'tb_produk.harga', 'tb_produk.kuantitas']);
+        $produk = ProductModel::where('status', 1)->get();
+        $avail = $this->getAvailability($saleList, $sales);
+        return view('sales.sales-ca', ['sales' => $sales, 'materials' => $produk, 'list' => $saleList, 'avail' => $avail]);
+    }
+    public function salesCreateBill(Request $request)
+    {
+        $sales = SalesModel::find($request->kode_sales);
+        $sales->metode_pembayaran = $request->metode_pembayaran;
+        $sales->status = $sales->status + 1;
+        $sales->save();
+        return $this->caItems($request->kode_sales);
+    }
+    public function getAvailability($saleList, $sales)
+    {
+        $avail = true;
+        foreach ($saleList as $item) {
+            if ($item->kuantitas < ($item->quantity)) {
+                $avail = false;
+            } else {
+                $avail = true;
+            }
+        }
+        return $avail;
+    }
+    public function confirmBill(Request $request)
+    {
+
+        $saleList = SalesListModel::Where('kode_sales', $request->kode_sales)->get();
+        foreach ($saleList as $item) {
+            $product = ProductModel::find($item->kode_produk);
+            $product->kuantitas = $product->kuantitas - $item->quantity;
+            $product->save();
+        }
+        $sales = SalesModel::find($request->kode_sales);
+        $sales->metode_pembayaran = $sales->metode_pembayaran;
+        $sales->status = $sales->status + 1;
+        $sales->save();
+        return redirect('sales/all');
     }
     public function allSales()
     {

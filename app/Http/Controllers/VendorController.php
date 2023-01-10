@@ -50,7 +50,7 @@ class VendorController extends Controller
             'kode_rfq' => $request->kode_rfq,
             'kode_produk' => $request->kode_produk,
             'quantity' => $request->quantity,
-            'satuan' => $request->satuan
+            'satuan' => "etc"
         ]);
         $product = ProductModel::find($request->kode_produk);
         $harga = $product->harga;

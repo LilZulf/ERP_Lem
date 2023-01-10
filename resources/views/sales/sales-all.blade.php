@@ -40,8 +40,12 @@
                     <span class="badge badge-primary">Transfer</span>
                     @endif
                 </td>
-                <td><a href="{{ url('/sales/input/'.$item->kode_sales) }}" class="btn btn-warning" role="button">Edit</a>
-
+                <td>
+                    @if($item->status < 2)
+                    <a href="{{ url('/sales/input/'.$item->kode_sales) }}" class="btn btn-warning" role="button">Edit</a>
+                    @elseif($item->status == 2)
+                    <a href="{{ url('/sales/ca-item/'.$item->kode_sales) }}" class="btn btn-warning" role="button">Make Payment</a>
+                    @endif
                     <form action="/delete-item/{{ $item->kode_produk }}" method="post">
                         @method('delete')
                         {{ csrf_field() }}
