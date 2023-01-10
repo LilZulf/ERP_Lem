@@ -6,6 +6,7 @@ use App\Http\Controllers\ManufactureController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AccountingController;
+use App\Http\Controllers\SalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +53,11 @@ Route::get('/sales/vendor-input', [VendorController::class,'vendor']);
 Route::get('/sales/vendor-list', [VendorController::class,'vendor']);
 Route::post('/sales/vendor-input', [VendorController::class,'uploadVendor']);
 Route::get('/sales/po', [VendorController::class,'po']);
-Route::get('/sales/input',function () {
-    return view('sales.sales');
-});
+Route::get('/sales/input',[SalesController::class,'inputSale']);
+Route::get('/sales/input/{kode_sales}',[SalesController::class,'inputItems']);
+Route::post('/sales/upload', [SalesController::class,'upload']);
+Route::post('/sales/list', [SalesController::class,'uploadItems']);
+Route::get('/sales/all', [SalesController::class,'allSales']);
 Route::get('/product/ca-item/{kode_bom}', [ManufactureController::class,'caItems']);
 Route::get('/inventory/inventory', [InventoryController::class,'inventory']);
 Route::get('/accounting/accounting', [AccountingController::class,'accounting']);

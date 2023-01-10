@@ -28,7 +28,7 @@
     </div>
     <div class="form-group mt-3">
       <label for="qty_rfq">Quantity</label>
-      <input type="text" class="form-control" id="qty_rfq" name="quantity" required>
+      <input type="number" class="form-control" id="qty_rfq" name="quantity" required>
     </div>
     <div class="dropdown">
       <label for="satuan">Pilih Satuan</label>

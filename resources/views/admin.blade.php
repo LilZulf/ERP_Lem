@@ -90,9 +90,11 @@
                 </a>
                 <div id="collapseSales1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/sales/all">All Sales</a>
                         <a class="collapse-item" href="/sales/input">Sales Quotation</a>
                     </div>
                 </div>
+                
             </li>
 
             <li class="nav-item">
