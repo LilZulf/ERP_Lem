@@ -88,7 +88,9 @@
             <button type="submit" onclick="return confirm('Sudah selesai?');" class="btn btn-info">Mark as done</button>
           </form>
           @endif
+          @if($item->status != 5)
           <button href="#" class="btn btn-danger">Cancel Produce</button>
+          @endif
         </td>
       </tr>
       @endforeach

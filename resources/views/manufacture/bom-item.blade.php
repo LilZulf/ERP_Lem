@@ -32,7 +32,7 @@
                 <input type="text" class="form-control" name="quantity" id="quantity">
             </div>
             <div class="form-group mt-2 ml-3">
-                <label for=""></label>
+                <!-- <label for=""></label>
                 <div class="dropdown">
                     <select class="theSelect2" name="satuan" id="satuan">
                         <option class="dropdown-item">Gram</option>
@@ -44,7 +44,8 @@
                         <option class="dropdown-item">Meter</option>
                         <option class="dropdown-item">Orang</option>
                     </select>
-                </div>
+                </div> -->
+                <input type="text" class="form-control" name="satuan" value="etc" id="satuan" hidden>
             </div>
         </div>
         <button type="submit" name="simpan" class="btn btn-primary">Add Bahan</button>

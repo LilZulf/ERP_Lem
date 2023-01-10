@@ -32,7 +32,7 @@
     </div>
     <div class="dropdown">
       <label for="satuan">Pilih Satuan</label>
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <select class="theSelect2" name="satuan" id="satuan">
           <option class="dropdown-item">Gram</option>
           <option class="dropdown-item">Kg</option>
@@ -43,7 +43,8 @@
           <option class="dropdown-item">Meter</option>
           <option class="dropdown-item">Orang</option>
         </select>
-      </div>
+      </div> -->
+      <input type="text" class="form-control" id="qty_rfq" name="satuan" id="satuan" value="etc" disabled>
     </div>
     <button type="submit" name="simpan" class="btn btn-primary my-3">Add Bahan</button>
     @endif

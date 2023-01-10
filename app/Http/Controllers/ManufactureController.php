@@ -213,7 +213,9 @@ class ManufactureController extends Controller
             $tempDelete = TempProduceModel::find($temp->id);
             $tempDelete->delete();
         }
-        return redirect('/product/ca-item/' . $kode_mo);
+        $mo->status = 5;
+        $mo->save();
+        return redirect('/product/mo');
     }
 
     public function printPdf()

@@ -40,7 +40,7 @@
                     <span class="badge badge-primary">Transfer</span>
                     @endif
                 </td>
-                <td><a href="{{ url('/edit-item/'.$item->kode_produk) }}" class="btn btn-warning" role="button">Edit</a>
+                <td><a href="{{ url('/sales/rfq/'.$item->kode_rfq) }}" class="btn btn-warning" role="button">Edit</a>
 
                     <form action="/delete-item/{{ $item->kode_produk }}" method="post">
                         @method('delete')
