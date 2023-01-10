@@ -7,6 +7,7 @@ use App\Models\SalesListModel;
 use App\Models\SalesModel;
 use App\Models\StakeholderModel;
 use Illuminate\Http\Request;
+use Svg\Tag\Rect;
 
 class SalesController extends Controller
 {
@@ -43,37 +44,44 @@ class SalesController extends Controller
     public function uploadItems(Request $request)
     {
         $check = SalesListModel::where('kode_produk', $request->kode_produk)
-        ->where('kode_sales', $request->kode_sales)
-        ->first();
+            ->where('kode_sales', $request->kode_sales)
+            ->first();
         if ($check != null) {
             $list = SalesListModel::find($check->kode_sales_list);
             $jumlah_baru = $list->quantity + $request->quantity;
             $list->quantity = $jumlah_baru;
             $list->save();
-            $product = ProductModel::find($request->kode_produk);
-            $harga = $product->harga;
-            $sales = SalesModel::find($request->kode_sales);
-            $harga_lama = $sales->total_harga;
-            $harga_baru = $harga_lama + ($harga * $jumlah_baru);
-            $sales->total_harga = $harga_baru;
-            $sales->save();
-            return redirect('sales/input/' . $request->kode_sales);
         } else {
             SalesListModel::create([
                 'kode_sales' => $request->kode_sales,
                 'kode_produk' => $request->kode_produk,
                 'quantity' => $request->quantity,
                 'satuan' => $request->satuan
-            ]);
-            $product = ProductModel::find($request->kode_produk);
-            $harga = $product->harga;
-            $sales = SalesModel::find($request->kode_sales);
-            $harga_lama = $sales->total_harga;
-            $harga_baru = $harga_lama + ($harga * $request->quantity);
-            $sales->total_harga = $harga_baru;
-            $sales->save();
-            return redirect('sales/input/' . $request->kode_sales);
+            ]); 
         }
+        return $this->calcPrice($request->kode_sales);
+    }
+    public function calcPrice($kode_sales)
+    {
+        $total_harga = 0;
+        $lists = SalesListModel::where('kode_sales', $kode_sales)->get();
+        foreach ($lists as $i) {
+            $product = ProductModel::find($i->kode_produk);
+            $harga = $product->harga;
+            $total_harga = $total_harga + ($harga * $i->quantity);
+        }
+        $sales = SalesModel::find($kode_sales);
+        $sales->total_harga = $total_harga;
+        $sales->save();
+
+        return redirect('sales/input/'.$kode_sales);
+    }
+    public function saveItems(Request $request)
+    {
+        $sales = SalesModel::find($request->kode_sales);
+        $sales->status = $sales->status + 1;
+        $sales->save();
+        return redirect('sales/input/' . $request->kode_sales);
     }
     public function allSales()
     {

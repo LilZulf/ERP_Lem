@@ -56,14 +56,6 @@ class BomController extends Controller
             $jumlah_baru = $list->quantity + $request->quantity;
             $list->quantity = $jumlah_baru;
             $list->save();
-            $product = ProductModel::find($request->kode_produk);
-            $harga = $product->harga;
-            $bom = BomModel::find($request->kode_bom);
-            $harga_lama = $bom->total_harga;
-            $harga_baru = $harga_lama + ($harga * $jumlah_baru);
-            $bom->total_harga = $harga_baru;
-            $bom->save();
-            return redirect('/product/bom-input-item/' . $request->kode_bom);
         } else {
             BomListModel::create([
                 'kode_bom' => $request->kode_bom,
@@ -71,15 +63,22 @@ class BomController extends Controller
                 'quantity' => $request->quantity,
                 'satuan' => $request->satuan
             ]);
-            $product = ProductModel::find($request->kode_produk);
-            $harga = $product->harga;
-            $bom = BomModel::find($request->kode_bom);
-            $harga_lama = $bom->total_harga;
-            $harga_baru = $harga_lama + ($harga * $request->quantity);
-            $bom->total_harga = $harga_baru;
-            $bom->save();
-            return redirect('/product/bom-input-item/' . $request->kode_bom);
         }
+        return $this->calcPrice($request->kode_bom);
+    }
+    public function calcPrice($kode_bom)
+    {
+        $total_harga = 0;
+        $lists = BomListModel::where('kode_bom', $kode_bom)->get();
+        foreach ($lists as $i) {
+            $product = ProductModel::find($i->kode_produk);
+            $harga = $product->harga;
+            $total_harga = $total_harga + ($harga * $i->quantity);
+        }
+        $bom = BomModel::find($kode_bom);
+        $bom->total_harga = $total_harga;
+        $bom->save();
+        return redirect('/product/bom-input-item/' . $kode_bom);
     }
     public function deleteList($kode_bom_list)
     {
