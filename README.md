@@ -18,46 +18,6 @@ Welcome to the Glue Factory ERP Web App! This application is designed to streaml
 
 7. **Bill of Materials (BOM)**: Create and manage BOMs to define the materials and components required for production, facilitating accurate inventory management and production planning.
 
-## Installation
-
-1. **Clone the repository**:
-
-    ```
-    git clone https://github.com/yourusername/glue-factory-erp-web-app.git
-    ```
-
-2. **Install dependencies**:
-
-    ```
-    cd glue-factory-erp-web-app
-    composer install
-    ```
-
-3. **Setup environment variables**:
-
-    Rename the `.env.example` file to `.env` and configure the necessary environment variables such as database connection details.
-
-4. **Generate application key**:
-
-    ```
-    php artisan key:generate
-    ```
-
-5. **Run migrations and seeders**:
-
-    ```
-    php artisan migrate --seed
-    ```
-
-6. **Start the server**:
-
-    ```
-    php artisan serve
-    ```
-
-7. **Access the application**:
-
-    Open your web browser and navigate to `http://localhost:8000`.
 
 ## Technologies Used
 
